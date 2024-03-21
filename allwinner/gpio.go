@@ -41,7 +41,7 @@ var (
 	PD0, PD1, PD2, PD3, PD4, PD5, PD6, PD7, PD8, PD9, PD10, PD11, PD12, PD13, PD14, PD15, PD16, PD17, PD18, PD19, PD20, PD21, PD22, PD23, PD24, PD25, PD26, PD27 *Pin
 	PE0, PE1, PE2, PE3, PE4, PE5, PE6, PE7, PE8, PE9, PE10, PE11, PE12, PE13, PE14, PE15, PE16, PE17                                                             *Pin
 	PF0, PF1, PF2, PF3, PF4, PF5, PF6                                                                                                                            *Pin
-	PG0, PG1, PG2, PG3, PG4, PG5, PG6, PG7, PG8, PG9, PG10, PG11, PG12, PG13                                                                                     *Pin
+	PG0, PG1, PG2, PG3, PG4, PG5, PG6, PG7, PG8, PG9, PG10, PG11, PG12, PG13, PG14, PG15, PG16, PG17, PG18, PG19                                                 *Pin
 	PH0, PH1, PH2, PH3, PH4, PH5, PH6, PH7, PH8, PH9, PH10, PH11, PH12, PH13, PH14, PH15, PH16, PH17, PH18, PH19, PH20, PH21, PH22, PH23, PH24, PH25, PH26, PH27 *Pin
 	PI0, PI1, PI2, PI3, PI4, PI5, PI6, PI7, PI8, PI9, PI10, PI11, PI12, PI13, PI14, PI15, PI16, PI17, PI18, PI19, PI20, PI21                                     *Pin
 )
@@ -652,6 +652,12 @@ var cpupins = map[string]*Pin{
 	"PG11": {group: 6, offset: 11, name: "PG11", defaultPull: gpio.Float},
 	"PG12": {group: 6, offset: 12, name: "PG12", defaultPull: gpio.Float},
 	"PG13": {group: 6, offset: 13, name: "PG13", defaultPull: gpio.Float},
+	"PG14": {group: 6, offset: 13, name: "PG14", defaultPull: gpio.Float},
+	"PG15": {group: 6, offset: 13, name: "PG15", defaultPull: gpio.Float},
+	"PG16": {group: 6, offset: 13, name: "PG16", defaultPull: gpio.Float},
+	"PG17": {group: 6, offset: 13, name: "PG17", defaultPull: gpio.Float},
+	"PG18": {group: 6, offset: 13, name: "PG18", defaultPull: gpio.Float},
+	"PG19": {group: 6, offset: 13, name: "PG19", defaultPull: gpio.Float},
 	"PH0":  {group: 7, offset: 0, name: "PH0", defaultPull: gpio.Float},
 	"PH1":  {group: 7, offset: 1, name: "PH1", defaultPull: gpio.Float},
 	"PH2":  {group: 7, offset: 2, name: "PH2", defaultPull: gpio.Float},
@@ -843,6 +849,12 @@ func init() {
 	PG11 = cpupins["PG11"]
 	PG12 = cpupins["PG12"]
 	PG13 = cpupins["PG13"]
+	PG14 = cpupins["PG14"]
+	PG15 = cpupins["PG15"]
+	PG16 = cpupins["PG16"]
+	PG17 = cpupins["PG17"]
+	PG18 = cpupins["PG18"]
+	PG19 = cpupins["PG19"]
 	PH0 = cpupins["PH0"]
 	PH1 = cpupins["PH1"]
 	PH2 = cpupins["PH2"]
@@ -1026,6 +1038,10 @@ func (d *driverGPIO) Init() (bool, error) {
 		}
 	case IsH5():
 		if err := mapH5Pins(); err != nil {
+			return true, err
+		}
+	case IsH616():
+		if err := mapH616Pins(); err != nil {
 			return true, err
 		}
 	default:
